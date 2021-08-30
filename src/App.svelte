@@ -4,7 +4,7 @@
 	import Header from './components/Header.svelte';
 	import Todos from './components/Todos.svelte';
 	let todos = [];
-	const TODOS_API_URL = 'http://127.0.0.1:8000/api/todos/';
+	const TODOS_API_URL = 'http://127.0.0.1:8081/api/todos/';
 
 	onMount(async () => {
 		const response = await fetch(TODOS_API_URL);
@@ -29,7 +29,7 @@
 
 <main>
 	<Header />
-	<!-- <AddTodo on:addTodo={(event) => add(event.detail)} /> -->
+	<AddTodo on:addTodo={(event) => add(event.detail)} />
 	<Todos {todos} />
 </main>
 

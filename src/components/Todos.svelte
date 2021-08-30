@@ -3,7 +3,13 @@
 </script>
 
 {#each todos as todo (todo.id)}
-	<div class={todo.completed ? 'todo-item todo-item-completed' : 'todo-item'}>{todo.title}</div>
+	<div class={todo.completed ? 'todo-item todo-item-completed' : 'todo-item'}>
+		<span class="todo-item-content">{todo.title}</span>
+		<div class="todo-item-action">
+			<button class="btn">Edit</button>
+			<button class="btn">Delelte</button>
+		</div>
+	</div>
 {:else}
 	<p>No todos found</p>
 {/each}
@@ -16,6 +22,9 @@
 		padding-left: 1rem;
 		background-color: #fff;
 		border-left-color: var(--success-clr);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	.todo-item:not(:last-child) {
@@ -27,6 +36,9 @@
 		border-color: var(--danger-clr);
 		font-weight: var(--fw-light);
 		opacity: 0.45;
+	}
+
+	.todo-item.todo-item-completed .todo-item-content {
 		text-decoration: line-through;
 	}
 </style>

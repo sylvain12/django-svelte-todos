@@ -8,5 +8,42 @@
 	};
 </script>
 
-<input type="text" bind:value={title} />
-<button on:click={add}>Add todo</button>
+<div class="form-block">
+	<input type="text" bind:value={title} />
+	<button on:click={add}>Add todo</button>
+</div>
+
+<style>
+	.form-block {
+		width: 100%;
+		display: flex;
+		margin-bottom: 2rem;
+		align-items: stretch;
+		justify-content: center;
+	}
+
+	input {
+		flex: 1;
+		padding: 1rem 2rem;
+		font-size: 1.5rem;
+		outline: none;
+	}
+
+	input:focus {
+		border: 1px solid var(--primary-clr);
+	}
+
+	button {
+		cursor: pointer;
+		background-color: var(--primary-clr);
+		color: #fff;
+		font-size: 1.5rem;
+		text-transform: uppercase;
+		padding: 1rem 2.5rem;
+		transition: opacity 0.2s;
+	}
+
+	button:hover {
+		opacity: 0.75;
+	}
+</style>
