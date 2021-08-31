@@ -3,6 +3,8 @@
 	let title = '';
 	const dispatch = createEventDispatcher();
 
+	$: isTitleUndefined = title === '' ? true : false;
+
 	const add = () => {
 		dispatch('addTodo', title);
 	};
@@ -10,7 +12,7 @@
 
 <div class="form-block">
 	<input type="text" bind:value={title} />
-	<button on:click={add}>Add todo</button>
+	<button disabled={isTitleUndefined} on:click={add}>Add todo</button>
 </div>
 
 <style>
@@ -45,5 +47,10 @@
 
 	button:hover {
 		opacity: 0.75;
+	}
+
+	button:disabled {
+		background-color: #999;
+		pointer-events: none;
 	}
 </style>

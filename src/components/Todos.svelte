@@ -1,4 +1,6 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
 	export let todos = [];
 </script>
 
@@ -6,8 +8,12 @@
 	<div class={todo.completed ? 'todo-item todo-item-completed' : 'todo-item'}>
 		<span class="todo-item-content">{todo.title}</span>
 		<div class="todo-item-action">
-			<button class="btn">Edit</button>
-			<button class="btn">Delelte</button>
+			<!-- <button class="btn btn-outline-success">
+				<i class="fi-rr-pencil" />
+			</button> -->
+			<button class="btn btn-outline-danger" on:click={() => dispatch('deleteTodo', todo.id)}>
+				<i class="fi-rr-cross" />
+			</button>
 		</div>
 	</div>
 {:else}
@@ -17,9 +23,8 @@
 <style>
 	.todo-item {
 		font-size: 1.4rem;
-		padding: 1.5rem 0;
+		padding: 1.5rem 1rem;
 		border-left: 3px solid;
-		padding-left: 1rem;
 		background-color: #fff;
 		border-left-color: var(--success-clr);
 		display: flex;
@@ -40,5 +45,40 @@
 
 	.todo-item.todo-item-completed .todo-item-content {
 		text-decoration: line-through;
+	}
+
+	.todo-item-action {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	.todo-item-action button:not(:last-child) {
+		margin-right: 0.5rem;
+	}
+
+	.todo-item-action button i {
+		font-size: 1.3rem;
+	}
+
+	.btn {
+		display: inline-block;
+		text-decoration: none;
+		/* padding: 0.8rem; */
+		cursor: pointer;
+		border: none;
+		background-color: transparent;
+		border-radius: 50%;
+	}
+
+	.btn:hover {
+	}
+
+	.btn-outline-danger {
+		color: var(--danger-clr);
+	}
+
+	.btn-outline-success {
+		color: var(--success-clr);
 	}
 </style>
