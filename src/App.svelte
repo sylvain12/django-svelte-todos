@@ -28,7 +28,7 @@
 	};
 
 	const handleDelete = async (event) => {
-		const response = await fetch(`${BASE_URL}/todo/${event.detail}`, {
+		const response = await fetch(`${BASE_URL}/todo/${event.detail}/`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -39,12 +39,28 @@
 
 		todos = todos.filter((todo) => todo.id !== event.detail);
 	};
+
+	const handleToggleCompleted = async (event) => {
+		const response = await fetch(`${BASE_URL}/todo/${event.detail.id}/`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			},
+			body: JSON.stringify({ completed: !event.detail.completed }),
+		});
+
+		const result = await response.json();
+
+		console.log(result);
+	};
 </script>
 
 <main>
 	<Header />
 	<AddTodo on:addTodo={(event) => handleAdd(event.detail)} />
-	<Todos {todos} on:deleteTodo={(event) => handleDelete(event)} />
+
+	<Todos {todos} on:deleteTodo={(event) => handleDelete(event)} on:toggleComplete={(event) => handleToggleCompleted(event)} />
 </main>
 
 <style>

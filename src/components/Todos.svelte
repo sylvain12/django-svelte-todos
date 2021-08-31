@@ -11,6 +11,7 @@
 			<!-- <button class="btn btn-outline-success">
 				<i class="fi-rr-pencil" />
 			</button> -->
+			<input type="checkbox" bind:checked={todo.completed} on:click={() => dispatch('toggleComplete', todo)} />
 			<button class="btn btn-outline-danger" on:click={() => dispatch('deleteTodo', todo.id)}>
 				<i class="fi-rr-cross" />
 			</button>
