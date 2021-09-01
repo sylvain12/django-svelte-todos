@@ -6,7 +6,7 @@
 	/* font weight */
 	--fw-light: 200;
 	--fw-normal: 400;
-	--fw-bold: 600;
+	--fw-bold: bold;
 }
 
 *,*::after, *::before {

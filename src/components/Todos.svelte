@@ -6,12 +6,11 @@
 
 {#each todos as todo (todo.id)}
 	<div class={todo.completed ? 'todo-item todo-item-completed' : 'todo-item'}>
-		<span class="todo-item-content">{todo.title}</span>
-		<div class="todo-item-action">
-			<!-- <button class="btn btn-outline-success">
-				<i class="fi-rr-pencil" />
-			</button> -->
+		<div class="todo-item-left">
 			<input type="checkbox" bind:checked={todo.completed} on:click={() => dispatch('toggleComplete', todo)} />
+			<span class="todo-item-content">{todo.title}</span>
+		</div>
+		<div class="todo-item-action">
 			<button class="btn btn-outline-danger" on:click={() => dispatch('deleteTodo', todo.id)}>
 				<i class="fi-rr-cross" />
 			</button>
@@ -46,6 +45,15 @@
 
 	.todo-item.todo-item-completed .todo-item-content {
 		text-decoration: line-through;
+	}
+
+	.todo-item-left {
+		display: flex;
+		align-items: center;
+	}
+
+	.todo-item-left input {
+		margin-right: 0.8rem;
 	}
 
 	.todo-item-action {

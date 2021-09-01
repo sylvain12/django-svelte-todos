@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	let title = '';
+	export let title = '';
 	const dispatch = createEventDispatcher();
 
 	$: isTitleUndefined = title === '' ? true : false;
