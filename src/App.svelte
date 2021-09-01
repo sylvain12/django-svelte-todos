@@ -1,5 +1,5 @@
 <script>
-	import { onMount, beforeUpdate } from 'svelte';
+	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
 	import AddTodo from './components/AddTodo.svelte';
 	import ClearCompleted from './components/ClearCompleted.svelte';
 	import Filters from './components/Filters.svelte';
@@ -19,15 +19,15 @@
 	$: handleViewChange = () => {
 		switch (defaultView) {
 			case 'active':
-				filterTodos = todos.filter((todo) => !todo.completed);
+				filterTodos = todos.filter((todo) => !todo.completed).sort(keepTodoSortAfterViewChange);
 				break;
 
 			case 'completed':
-				filterTodos = todos.filter((todo) => todo.completed);
+				filterTodos = todos.filter((todo) => todo.completed).sort(keepTodoSortAfterViewChange);
 				break;
 
 			default:
-				filterTodos = todos;
+				filterTodos = todos.sort(keepTodoSortAfterViewChange);
 				break;
 		}
 	};
@@ -38,7 +38,7 @@
 		handleViewChange();
 	});
 
-	beforeUpdate(() => {
+	afterUpdate(() => {
 		handleViewChange();
 	});
 
@@ -83,22 +83,21 @@
 		const result = await response.json();
 	};
 
-	// const handleClearCompleted = async () => {
-	// 	todos.map((todo) => {
-	// 		if (!todo.completed) {
-	// 			handleDelete(todo.id);
-	// 		}
-	// 	});
-	// };
-
 	const handleSort = () => {
 		if (sortDirection === 1) {
 			filterTodos = filterTodos.sort((t1, t2) => (t1.title.toLowerCase() < t2.title.toLowerCase() ? 1 : -1));
-			// filterTodos = filterTodos.sort((t1, t2) => t1.name - t2.name);
 			sortDirection = 2;
 		} else if (sortDirection === 2) {
 			filterTodos = filterTodos.sort((t1, t2) => (t1.title.toLowerCase() > t2.title.toLowerCase() ? 1 : -1));
 			sortDirection = 1;
+		}
+	};
+
+	const keepTodoSortAfterViewChange = () => {
+		if (sortDirection === 1) {
+			filterTodos = filterTodos.sort((t1, t2) => (t1.title.toLowerCase() > t2.title.toLowerCase() ? 1 : -1));
+		} else if (sortDirection === 2) {
+			filterTodos = filterTodos.sort((t1, t2) => (t1.title.toLowerCase() < t2.title.toLowerCase() ? 1 : -1));
 		}
 	};
 </script>
