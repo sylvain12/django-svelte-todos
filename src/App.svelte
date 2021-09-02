@@ -1,5 +1,5 @@
 <script>
-	import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+	import { onMount, afterUpdate, setContext, beforeUpdate } from 'svelte';
 	import AddTodo from './components/AddTodo.svelte';
 	import ClearCompleted from './components/ClearCompleted.svelte';
 	import Filters from './components/Filters.svelte';
@@ -11,10 +11,20 @@
 	let title;
 	let defaultView;
 	let sortDirection;
+	let todos = [];
 
 	$: filterTodos = [];
+	$: allTodosCount = 0;
+	// $: activeTodosCount = todos.filter((todo) => todo.completed).length;
+	// $: completedTodosCount = todos.filter((todo) => !todo.completed).length;
 
-	let todos = [];
+	$: counter = {
+		allTodosCount: 0,
+		activeTodosCount: 0,
+		completedTodosCount: 0,
+	};
+
+	$: setContext('counter', counter);
 
 	$: handleViewChange = () => {
 		switch (defaultView) {
@@ -36,6 +46,14 @@
 		const response = await fetch(TODOS_API_URL);
 		todos = await response.json();
 		handleViewChange();
+	});
+
+	beforeUpdate(() => {
+		counter = {
+			allTodosCount: todos.length,
+			activeTodosCount: todos.filter((todo) => !todo.completed).length,
+			completedTodosCount: todos.filter((todo) => todo.completed).length,
+		};
 	});
 
 	afterUpdate(() => {
@@ -65,7 +83,7 @@
 				Accept: 'application/json',
 			},
 		});
-		const result = await response.status;
+		// const result = await response.status;
 
 		todos = todos.filter((todo) => todo.id !== event.detail);
 	};
@@ -103,7 +121,7 @@
 </script>
 
 <main>
-	<Header />
+	<Header bind:counter />
 
 	<AddTodo {title} on:addTodo={(event) => handleAdd(event.detail)} />
 

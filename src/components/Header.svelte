@@ -1,11 +1,14 @@
 <script>
-	export let todosCount = 23;
+	import { getContext, setContext } from 'svelte';
+	import TasksCount from './TasksCount.svelte';
+
+	export let counter = {};
 </script>
 
 <div class="header">
 	<h1>Tasks</h1>
 
-	<span>{todosCount}</span>
+	<TasksCount bind:counter />
 </div>
 
 <style>
@@ -20,19 +23,5 @@
 		font-size: 1.8rem;
 		color: var(--primary-clr);
 		font-weight: var(--fw-bold);
-	}
-
-	.header span {
-		display: inline-block;
-		width: 3rem;
-		height: 3rem;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: #fff;
-		background-color: var(--primary-clr);
-		font-size: 1.2rem;
-		line-height: 0;
 	}
 </style>
