@@ -1,5 +1,4 @@
 <script>
-	import { getContext } from 'svelte';
 	export let counter = {};
 </script>
 

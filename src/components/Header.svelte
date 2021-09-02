@@ -1,5 +1,4 @@
 <script>
-	import { getContext, setContext } from 'svelte';
 	import TasksCount from './TasksCount.svelte';
 
 	export let counter = {};

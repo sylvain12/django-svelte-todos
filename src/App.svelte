@@ -1,7 +1,6 @@
 <script>
 	import { onMount, afterUpdate, setContext, beforeUpdate } from 'svelte';
 	import AddTodo from './components/AddTodo.svelte';
-	import ClearCompleted from './components/ClearCompleted.svelte';
 	import Filters from './components/Filters.svelte';
 	import Header from './components/Header.svelte';
 	import Todos from './components/Todos.svelte';
@@ -14,9 +13,6 @@
 	let todos = [];
 
 	$: filterTodos = [];
-	$: allTodosCount = 0;
-	// $: activeTodosCount = todos.filter((todo) => todo.completed).length;
-	// $: completedTodosCount = todos.filter((todo) => !todo.completed).length;
 
 	$: counter = {
 		allTodosCount: 0,
@@ -83,7 +79,6 @@
 				Accept: 'application/json',
 			},
 		});
-		// const result = await response.status;
 
 		todos = todos.filter((todo) => todo.id !== event.detail);
 	};

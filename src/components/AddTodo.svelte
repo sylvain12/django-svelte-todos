@@ -12,7 +12,7 @@
 
 <div class="form-block">
 	<input type="text" bind:value={title} />
-	<button disabled={isTitleUndefined} on:click={add}>Add todo</button>
+	<button disabled={isTitleUndefined} on:click={add}> Add todo</button>
 </div>
 
 <style>
